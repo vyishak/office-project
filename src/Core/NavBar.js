@@ -6,12 +6,12 @@ import Typography from '@mui/material/Typography';
 // import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import {Link} from "react-router-dom";
+import { Context } from '../Context/UserContext';
 // import MenuIcon from '@mui/icons-material/Menu';
-import { UserContext, ChannelContext } from '../App'
 
 export default function NavBar() {
-  const user = useContext(UserContext)
-  console.log("user",user)
+  const { state } = useContext(Context);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,7 +28,16 @@ export default function NavBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Project
           </Typography>
-          <Link to = "/login" >Login</Link>
+          {state && state.profile ? 
+          <>
+            <Link style={{ marginRight: "2em", textDecoration: 'none', color: 'white'}} to = "/users" >Users</Link>
+            {state.profile.name}
+            </>
+          :
+          <Link style={{ textDecoration: 'none', color: 'white'}} to = "/login" >Login</Link>
+          }
+         
+         
         </Toolbar>
       </AppBar>
     </Box>

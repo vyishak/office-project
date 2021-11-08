@@ -4,7 +4,7 @@ import CreateDataContext from "./CreateDataContext";
 
 const userReducer = (state , action) => {
     switch (action.type){
-        case 'all_users' :
+        case 'users' :
             return {...state , users : action.payload} ;
         case 'profile' : 
             return {...state , profile : action.payload} ;
@@ -16,6 +16,7 @@ const userReducer = (state , action) => {
 
 const login = (dispatch) => {
     return  (profile) => {
+        console.log("profile from context", profile)
         dispatch({type: "profile", payload : profile})
     }  
 }
@@ -24,10 +25,10 @@ const fetchUsers = (dispatch) => {
   return async ()=>{
     try {
         const response = await axios.get("https://jsonplaceholder.typicode.com/users");
-        dispatch({type : "all_users" , payload : response.data })
+        dispatch({type : "users" , payload : response.data })
 
     } catch(e){
-        console.log ("Got Error");
+        console.log (e, "Got Error");
     }
   }
 }
